@@ -79,6 +79,9 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "q-learning-on-frozenlake-from-scratch": "/generated/q-learning-frozenlake-architecture.png",
     "build-a-retrieval-augmented-generation-pipeline-from-scratch": "/generated/rag-architecture.png",
     "direct-preference-optimization-dpo-from-scratch": "/generated/dpo-architecture.png",
+    "rlhf-from-scratch-on-distilgpt2": "/generated/rlhf-architecture.png",
+    "vision-language-model-from-scratch-in-pytorch": "/generated/vlm-architecture.png",
+    "flash-attention-in-cuda-from-scratch": "/generated/flash-attention-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
