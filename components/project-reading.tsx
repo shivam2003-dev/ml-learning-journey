@@ -86,6 +86,10 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "build-a-mini-llm-inference-server": "/generated/mini-llm-server-architecture.png",
     "verillm-publicly-verifiable-decentralized-llm-inference-from-scr": "/generated/verillm-architecture.png",
     "build-an-mlp-in-jax-from-scratch": "/generated/jax-mlp-architecture.png",
+    "build-your-own-teenygrad-a-tiny-tensor-autograd-engine": "/generated/teenygrad-architecture.png",
+    "federated-averaging-fedavg-from-scratch-in-pytorch": "/generated/fedavg-architecture.png",
+    "diloco-distributed-low-communication-training-of-language-models": "/generated/diloco-architecture.png",
+    "mini-distributed-training-and-memory-constrained-trainer-from-sc": "/generated/memory-trainer-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
