@@ -82,6 +82,10 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "rlhf-from-scratch-on-distilgpt2": "/generated/rlhf-architecture.png",
     "vision-language-model-from-scratch-in-pytorch": "/generated/vlm-architecture.png",
     "flash-attention-in-cuda-from-scratch": "/generated/flash-attention-architecture.png",
+    "fused-llm-inference-kernels-in-cuda": "/generated/fused-llm-kernels-architecture.png",
+    "build-a-mini-llm-inference-server": "/generated/mini-llm-server-architecture.png",
+    "verillm-publicly-verifiable-decentralized-llm-inference-from-scr": "/generated/verillm-architecture.png",
+    "build-an-mlp-in-jax-from-scratch": "/generated/jax-mlp-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
