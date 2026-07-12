@@ -14,6 +14,7 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.5.20",
     "@tanstack/react-query": "^5.66.0",
+    "better-react-mathjax": "^3.0.1",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.3",
@@ -24,11 +25,11 @@
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.6",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.13.4",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "@tailwindcss/postcss": "^4.0.6",
     "eslint": "^9.20.1",
     "eslint-config-next": "^15.1.7",
     "postcss": "^8.5.10",
@@ -36,5 +37,7 @@
     "tailwindcss": "^4.0.6",
     "typescript": "^5.7.3"
   },
-  "overrides": { "postcss": "^8.5.10" }
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
 }

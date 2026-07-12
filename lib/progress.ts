@@ -7,6 +7,7 @@ export type JourneyState = {
   completed: string[];
   stepProgress: Record<string, number>;
   guideChapters: Record<string, number[]>;
+  walkthroughSteps: string[];
   bookmarks: string[];
   notes: Record<string, string>;
   ratings: Record<string, number>;
@@ -17,7 +18,7 @@ export type JourneyState = {
   dailyGoal: number;
 };
 
-const initialState: JourneyState = { completed: [], stepProgress: {}, guideChapters: {}, bookmarks: [], notes: {}, ratings: {}, timeSpent: {}, repositories: {}, activity: [], startedAt: new Date().toISOString(), dailyGoal: 30 };
+const initialState: JourneyState = { completed: [], stepProgress: {}, guideChapters: {}, walkthroughSteps: [], bookmarks: [], notes: {}, ratings: {}, timeSpent: {}, repositories: {}, activity: [], startedAt: new Date().toISOString(), dailyGoal: 30 };
 const key = "ml-learning-journey-v1";
 
 export function useJourney() {
@@ -46,6 +47,7 @@ export function useJourney() {
     const next = done.includes(chapter) ? done.filter(item => item !== chapter) : [...done, chapter];
     return { ...current, guideChapters: { ...current.guideChapters, [slug]: next } };
   }), []);
+  const toggleWalkthroughStep = useCallback((stepId: string) => setState((current) => ({ ...current, walkthroughSteps: current.walkthroughSteps.includes(stepId) ? current.walkthroughSteps.filter((item) => item !== stepId) : [...current.walkthroughSteps, stepId] })), []);
   const setRating = useCallback((slug: string, rating: number) => setState((current) => ({ ...current, ratings: { ...current.ratings, [slug]: rating } })), []);
   const setTimeSpent = useCallback((slug: string, minutes: number) => setState((current) => ({ ...current, timeSpent: { ...current.timeSpent, [slug]: minutes } })), []);
   const setRepository = useCallback((slug: string, repository: string) => setState((current) => ({ ...current, repositories: { ...current.repositories, [slug]: repository } })), []);
@@ -66,5 +68,5 @@ export function useJourney() {
     return { xp, level, levelXp: xp % 1000, hours, streak, weeklyDays, todayMinutes, completion: Math.round(state.completed.length / projects.length * 100), skillPoints: state.completed.length * 3, coins: state.completed.length * 120, stars: completedProjects.reduce((sum, p) => sum + (p.difficulty === "Hard" ? 3 : p.difficulty === "Medium" ? 2 : 1), 0) };
   }, [state]);
 
-  return { state, ready, stats, complete, bookmark, saveNote, setStepProgress, toggleGuideChapter, setRating, setTimeSpent, setRepository, setDailyGoal };
+  return { state, ready, stats, complete, bookmark, saveNote, setStepProgress, toggleGuideChapter, toggleWalkthroughStep, setRating, setTimeSpent, setRepository, setDailyGoal };
 }

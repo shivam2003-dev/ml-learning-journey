@@ -6,7 +6,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const compat = new FlatCompat({ baseDirectory: root });
 
 const config = [
-  { ignores: [".next/**", "node_modules/**", "output/**", ".playwright-cli/**", "next-env.d.ts"] },
+  { ignores: [".next/**", "node_modules/**", "out/**", "output/**", ".playwright-cli/**", "next-env.d.ts"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 export default config;
