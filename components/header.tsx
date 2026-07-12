@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BarChart3, Map, Search, Trophy } from "lucide-react";
 import { Logo } from "./icons";
+import { ThemeToggle } from "./walkthrough/theme-toggle";
 
 export function Header({ active = "roadmap" }: { active?: string }) {
   return <header className="topbar">
@@ -13,6 +14,6 @@ export function Header({ active = "roadmap" }: { active?: string }) {
       <Link className={active === "projects" ? "active" : ""} href="/projects"><Search size={16}/> Projects</Link>
       <a href="#leaderboard"><Trophy size={16}/> Leaderboard</a>
     </nav>
-    <div className="profile"><span className="profile-level">LVL 01</span><span className="avatar">SK</span></div>
+    <div className="profile"><ThemeToggle/><span className="profile-level">LVL 01</span><span className="avatar">SK</span></div>
   </header>;
 }
