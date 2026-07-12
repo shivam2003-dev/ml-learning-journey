@@ -73,6 +73,7 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "alphazero-on-connect-4-from-scratch": "/generated/alphazero-connect4-architecture.png",
     "random-forest-from-scratch": "/generated/random-forest-architecture.png",
     "support-vector-machine-from-scratch": "/generated/svm-architecture.png",
+    "build-a-trainable-cnn-from-scratch-in-numpy": "/generated/cnn-numpy-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
