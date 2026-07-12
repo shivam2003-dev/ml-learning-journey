@@ -93,6 +93,9 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "trainable-mixture-of-experts-in-cuda": "/generated/moe-cuda-architecture.png",
     "multimodal-autoregressive-image-generator-from-scratch-in-jax": "/generated/multimodal-image-generator-architecture.png",
     "lora-fine-tune-a-tiny-chat-model-with-unsloth": "/generated/lora-unsloth-architecture.png",
+    "a-b-testing-causal-inference-toolkit": "/generated/causal-inference-architecture.png",
+    "market-making-betting-game-simulator": "/generated/market-making-architecture.png",
+    "reinforcement-learning-for-tic-tac-toe-from-minimax-to-dqn": "/generated/tictactoe-dqn-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
