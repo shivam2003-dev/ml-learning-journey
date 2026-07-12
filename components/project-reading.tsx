@@ -78,6 +78,7 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "tiny-gpt-from-scratch": "/generated/tiny-gpt-architecture.png",
     "q-learning-on-frozenlake-from-scratch": "/generated/q-learning-frozenlake-architecture.png",
     "build-a-retrieval-augmented-generation-pipeline-from-scratch": "/generated/rag-architecture.png",
+    "direct-preference-optimization-dpo-from-scratch": "/generated/dpo-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
