@@ -75,6 +75,7 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "support-vector-machine-from-scratch": "/generated/svm-architecture.png",
     "build-a-trainable-cnn-from-scratch-in-numpy": "/generated/cnn-numpy-architecture.png",
     "attention-is-all-you-need-build-the-transformer-from-scratch": "/generated/transformer-architecture.png",
+    "tiny-gpt-from-scratch": "/generated/tiny-gpt-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
