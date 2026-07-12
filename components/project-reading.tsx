@@ -90,6 +90,9 @@ export function ProjectArchitecture({ project }: { project: Project }) {
     "federated-averaging-fedavg-from-scratch-in-pytorch": "/generated/fedavg-architecture.png",
     "diloco-distributed-low-communication-training-of-language-models": "/generated/diloco-architecture.png",
     "mini-distributed-training-and-memory-constrained-trainer-from-sc": "/generated/memory-trainer-architecture.png",
+    "trainable-mixture-of-experts-in-cuda": "/generated/moe-cuda-architecture.png",
+    "multimodal-autoregressive-image-generator-from-scratch-in-jax": "/generated/multimodal-image-generator-architecture.png",
+    "lora-fine-tune-a-tiny-chat-model-with-unsloth": "/generated/lora-unsloth-architecture.png",
   };
   const generatedVisual = generatedVisuals[project.slug];
   return <main className="app-shell reading-shell"><Header active="projects"/><article className="architecture-page">
