@@ -1,0 +1,10 @@
+{
+  "seed": 21,
+  "steps": 500,
+  "mid": 100.0,
+  "volatility": 0.15,
+  "risk_aversion": 0.08,
+  "liquidity": 1.5,
+  "max_inventory": 8,
+  "fractional_kelly": 0.5
+}

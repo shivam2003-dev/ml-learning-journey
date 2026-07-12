@@ -1,0 +1,10 @@
+{
+  "seed": 3,
+  "tokens": 64,
+  "d_model": 6,
+  "experts": 4,
+  "top_k": 2,
+  "capacity_factor": 1.5,
+  "learning_rate": 0.15,
+  "steps": 30
+}

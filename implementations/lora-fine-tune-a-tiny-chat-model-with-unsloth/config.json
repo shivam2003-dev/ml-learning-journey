@@ -1,0 +1,10 @@
+{
+  "seed": 9,
+  "input_dim": 8,
+  "output_dim": 5,
+  "rank": 3,
+  "alpha": 6.0,
+  "learning_rate": 0.25,
+  "steps": 160,
+  "quant_bits": 4
+}

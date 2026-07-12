@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "random-forest"
+version = "0.1.0"
+dependencies = ["numpy>=1.24"]
+
+[project.scripts]
+random-forest = "random_forest.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

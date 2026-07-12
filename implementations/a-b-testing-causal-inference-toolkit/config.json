@@ -1,0 +1,7 @@
+{
+  "alpha": 0.05,
+  "power": 0.8,
+  "baseline_rate": 0.1,
+  "mde": 0.02,
+  "seed": 12
+}

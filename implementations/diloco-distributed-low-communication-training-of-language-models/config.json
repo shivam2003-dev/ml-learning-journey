@@ -1,0 +1,11 @@
+{
+  "seed": 7,
+  "workers": 4,
+  "samples_per_worker": 48,
+  "features": 3,
+  "inner_steps": 8,
+  "inner_lr": 0.06,
+  "outer_lr": 0.8,
+  "momentum": 0.9,
+  "rounds": 30
+}

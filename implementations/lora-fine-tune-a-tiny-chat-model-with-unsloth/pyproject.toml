@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml-journey-lora-tune"
+version = "0.1.0"
+description = 'A dependency-light QLoRA reference demonstrating 4-bit loading, frozen weights, low-rank adapters, merge, and held-out evaluation.'
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "nbclient>=0.10", "ipykernel>=6"]
+
+[project.scripts]
+lora-tune = "lora_tune.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"

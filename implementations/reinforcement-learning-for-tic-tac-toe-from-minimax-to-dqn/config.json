@@ -1,0 +1,11 @@
+{
+  "seed": 6,
+  "hidden": 32,
+  "episodes": 600,
+  "gamma": 0.95,
+  "epsilon_start": 1.0,
+  "epsilon_end": 0.05,
+  "learning_rate": 0.03,
+  "batch_size": 32,
+  "target_update": 40
+}

@@ -1,0 +1,11 @@
+{
+  "seed": 4,
+  "features": 6,
+  "hidden": 10,
+  "samples": 96,
+  "microbatch": 8,
+  "accumulation_steps": 3,
+  "learning_rate": 0.08,
+  "epochs": 18,
+  "world_size": 2
+}

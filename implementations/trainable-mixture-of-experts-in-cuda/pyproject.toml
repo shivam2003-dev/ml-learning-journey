@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml-journey-moe"
+version = "0.1.0"
+description = 'A tested CPU reference for top-k routing, capacity-aware dispatch, expert execution, combination, and load diagnostics suitable for validating CUDA kernels.'
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "nbclient>=0.10", "ipykernel>=6"]
+
+[project.scripts]
+moe = "moe.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"

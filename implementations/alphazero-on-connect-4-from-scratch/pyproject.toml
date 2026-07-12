@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "connect4-zero"
+version = "0.1.0"
+dependencies = ["numpy>=1.24"]
+
+[project.scripts]
+connect4-zero = "connect4_zero.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

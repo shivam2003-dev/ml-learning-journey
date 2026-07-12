@@ -1,0 +1,833 @@
+[
+  {
+    "slug": "random-forest-from-scratch",
+    "research_evolution": "Bagging first established variance reduction through bootstrap aggregation; random forests added per-split feature randomization to decorrelate strong trees; extremely randomized trees pushed randomization into threshold selection. Modern work should preserve out-of-bag evaluation while improving probability calibration, class imbalance handling, interpretability, and memory-efficient split search.",
+    "sources": [
+      {
+        "title": "Bagging Predictors",
+        "url": "https://www.stat.berkeley.edu/~breiman/bagging.pdf",
+        "year": 1996,
+        "contribution": "Introduced bootstrap aggregation as a general variance-reduction method for unstable predictors such as decision trees.",
+        "limitations_current_improvement_angle": "Bootstrap replicas remain correlated and the paper predates modern calibration and imbalance diagnostics; compare plain bagging with feature-randomized forests using OOB calibration and subgroup error."
+      },
+      {
+        "title": "Random Forests",
+        "url": "https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf",
+        "year": 2001,
+        "contribution": "Defined random forests as ensembles of randomized trees and related generalization error to individual-tree strength and inter-tree correlation.",
+        "limitations_current_improvement_angle": "Classical impurity importance is biased toward high-cardinality features and probabilities can be poorly calibrated; add permutation importance, honest validation, calibration, and robust missing-value handling."
+      },
+      {
+        "title": "Extremely Randomized Trees",
+        "url": "https://orbi.uliege.be/bitstream/2268/9357/1/geurts-mlj-advance.pdf",
+        "year": 2006,
+        "contribution": "Randomized both attributes and split thresholds, showing that stronger randomization can reduce variance and training cost.",
+        "limitations_current_improvement_angle": "Extra randomization can increase bias and behavior depends strongly on noise and sample size; expose the bias-variance-speed trade-off through controlled ablations."
+      }
+    ]
+  },
+  {
+    "slug": "support-vector-machine-from-scratch",
+    "research_evolution": "Maximum-margin classification began with an optimal separating hyperplane and kernel mapping, expanded to soft margins for non-separable data, then gained practical scalability through decomposition methods such as SMO and linear primal optimization. A from-scratch project should distinguish exact dual optimization from pedagogical hinge-loss SGD and measure margin, calibration, and class imbalance explicitly.",
+    "sources": [
+      {
+        "title": "A Training Algorithm for Optimal Margin Classifiers",
+        "url": "https://doi.org/10.1145/130385.130401",
+        "year": 1992,
+        "contribution": "Introduced the kernelized optimal-margin classifier and a training formulation in terms of support vectors.",
+        "limitations_current_improvement_angle": "The quadratic program scales poorly with sample count; contrast the exact dual with modern decomposition or primal solvers."
+      },
+      {
+        "title": "Support-Vector Networks",
+        "url": "https://link.springer.com/article/10.1007/BF00994018",
+        "year": 1995,
+        "contribution": "Extended maximum-margin learning to non-separable data using soft margins and demonstrated nonlinear kernel classifiers.",
+        "limitations_current_improvement_angle": "Kernel and regularization selection are expensive and outputs are not probabilities; add nested validation, calibration, and imbalance-aware metrics."
+      },
+      {
+        "title": "Sequential Minimal Optimization: A Fast Algorithm for Training Support Vector Machines",
+        "url": "https://www.microsoft.com/en-us/research/publication/sequential-minimal-optimization-a-fast-algorithm-for-training-support-vector-machines/",
+        "year": 1998,
+        "contribution": "Reduced SVM training to analytic updates of the smallest possible dual subproblems, avoiding a general-purpose QP solver.",
+        "limitations_current_improvement_angle": "Kernel SMO is still costly for very large datasets; benchmark against linear primal SGD and approximate kernels."
+      }
+    ]
+  },
+  {
+    "slug": "build-a-trainable-cnn-from-scratch-in-numpy",
+    "research_evolution": "LeNet established end-to-end convolution, subsampling, and backpropagation; AlexNet showed that depth, ReLU, data augmentation, dropout, and GPU compute could scale CNNs; residual learning made substantially deeper networks trainable. A NumPy implementation should retain explicit convolution gradients while testing initialization, normalization, optimizer behavior, and vectorized im2col memory costs.",
+    "sources": [
+      {
+        "title": "Gradient-Based Learning Applied to Document Recognition",
+        "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf",
+        "year": 1998,
+        "contribution": "Presented LeNet-style convolutional networks trained end-to-end with backpropagation for document recognition.",
+        "limitations_current_improvement_angle": "Small grayscale tasks and saturating activations do not represent modern regimes; reproduce the core pipeline, then compare ReLU, stronger initialization, and modern augmentation."
+      },
+      {
+        "title": "ImageNet Classification with Deep Convolutional Neural Networks",
+        "url": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+        "year": 2012,
+        "contribution": "Demonstrated large-scale deep CNN training with GPUs, ReLU, augmentation, and dropout, decisively improving ImageNet classification.",
+        "limitations_current_improvement_angle": "The architecture is parameter-heavy and includes historical multi-GPU constraints; use it as evidence for optimization choices rather than a target architecture."
+      },
+      {
+        "title": "Deep Residual Learning for Image Recognition",
+        "url": "https://arxiv.org/abs/1512.03385",
+        "year": 2015,
+        "contribution": "Introduced residual connections that make very deep convolutional networks easier to optimize.",
+        "limitations_current_improvement_angle": "Residual networks add normalization and architectural complexity beyond a minimal engine; use residual blocks as a stretch experiment after gradient checks pass."
+      }
+    ]
+  },
+  {
+    "slug": "attention-is-all-you-need-build-the-transformer-from-scratch",
+    "research_evolution": "Sequence-to-sequence learning moved from recurrent encoder-decoders to content-based attention, then to a fully attention-based Transformer with positional information and parallel training. Later work exposed quadratic attention memory as the key systems bottleneck. A faithful build should first reproduce masking, scaling, residual paths, normalization, scheduling, and beam search before exploring relative position methods or efficient attention.",
+    "sources": [
+      {
+        "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+        "url": "https://arxiv.org/abs/1409.0473",
+        "year": 2014,
+        "contribution": "Introduced a learned soft alignment mechanism that lets a decoder attend to relevant encoder states instead of relying on one fixed vector.",
+        "limitations_current_improvement_angle": "The recurrent backbone limits parallelism and attention is encoder-decoder specific; use it to motivate query-key-value attention and compare alignment behavior."
+      },
+      {
+        "title": "Attention Is All You Need",
+        "url": "https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html",
+        "year": 2017,
+        "contribution": "Introduced the encoder-decoder Transformer using scaled dot-product multi-head attention, positional encoding, residual connections, and a specialized learning-rate schedule.",
+        "limitations_current_improvement_angle": "Attention cost is quadratic in sequence length and the post-norm/absolute-position design is no longer universal; keep the original as the reproducible baseline before modern variants."
+      },
+      {
+        "title": "Self-Attention with Relative Position Representations",
+        "url": "https://aclanthology.org/N18-2074/",
+        "year": 2018,
+        "contribution": "Extended self-attention to represent relative distances between sequence elements rather than relying only on absolute positions.",
+        "limitations_current_improvement_angle": "Adds attention-time computation and was evaluated at modest context lengths; compare relative position bias with sinusoidal encoding under identical training budgets."
+      }
+    ]
+  },
+  {
+    "slug": "tiny-gpt-from-scratch",
+    "research_evolution": "The decoder-only Transformer became a transferable language model through generative pretraining, then GPT-2 showed that scale and diverse web text yield zero-shot task behavior, while GPT-3 demonstrated in-context few-shot scaling. A tiny implementation cannot reproduce emergent scale effects, so it should emphasize causal masking, tokenization, optimization, sampling calibration, reproducibility, and honest scaling curves.",
+    "sources": [
+      {
+        "title": "Improving Language Understanding by Generative Pre-Training",
+        "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+        "year": 2018,
+        "contribution": "Established decoder-only Transformer language-model pretraining followed by task-specific fine-tuning as a general transfer-learning recipe.",
+        "limitations_current_improvement_angle": "Relies on supervised downstream fine-tuning and a relatively small corpus; a tiny build should isolate next-token learning before adding downstream adaptation."
+      },
+      {
+        "title": "Language Models are Unsupervised Multitask Learners",
+        "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+        "year": 2019,
+        "contribution": "Showed that a scaled autoregressive Transformer trained on diverse web text acquires useful zero-shot task behavior and introduced the GPT-2 family.",
+        "limitations_current_improvement_angle": "Web data carries bias and contamination, and likelihood does not guarantee factual or safe outputs; add dataset documentation and generation-quality diagnostics."
+      },
+      {
+        "title": "Language Models are Few-Shot Learners",
+        "url": "https://arxiv.org/abs/2005.14165",
+        "year": 2020,
+        "contribution": "Demonstrated strong few-shot and in-context task performance by scaling an autoregressive model to 175B parameters.",
+        "limitations_current_improvement_angle": "Compute, energy, data provenance, bias, and benchmark contamination limit reproducibility; focus a tiny project on scaling laws and controlled ablations rather than headline parity."
+      }
+    ]
+  },
+  {
+    "slug": "q-learning-on-frozenlake-from-scratch",
+    "research_evolution": "Temporal-difference learning introduced online bootstrapping, Q-learning established off-policy control with a convergence result in the tabular setting, and modern Gymnasium formalized reproducible environment interfaces and separate termination/truncation signals. The project should make stochastic dynamics and exploration schedules explicit and report success distributions over seeds rather than one run.",
+    "sources": [
+      {
+        "title": "Learning to Predict by the Methods of Temporal Differences",
+        "url": "https://link.springer.com/article/10.1007/BF00115009",
+        "year": 1988,
+        "contribution": "Introduced temporal-difference prediction, combining Monte Carlo sampling with dynamic-programming-style bootstrapping.",
+        "limitations_current_improvement_angle": "Focuses on prediction rather than full control; use it to derive the TD error before introducing the max-action Q-learning target."
+      },
+      {
+        "title": "Q-learning",
+        "url": "https://link.springer.com/article/10.1007/BF00992698",
+        "year": 1992,
+        "contribution": "Defined the off-policy tabular Q-learning update and proved convergence under finite-state assumptions with adequate visitation and learning-rate conditions.",
+        "limitations_current_improvement_angle": "The guarantees do not cover function approximation, finite data, or careless exploration decay; instrument state-action visitation and multi-seed uncertainty."
+      },
+      {
+        "title": "Gymnasium Frozen Lake Documentation",
+        "url": "https://gymnasium.farama.org/environments/toy_text/frozen_lake/",
+        "year": 2023,
+        "contribution": "Officially specifies FrozenLake states, actions, rewards, stochastic transitions, map generation, and environment parameters.",
+        "limitations_current_improvement_angle": "The benchmark is tiny and sensitive to map/slippery settings; test slippery versus deterministic variants, generated maps, and separate terminated from truncated episodes."
+      }
+    ]
+  },
+  {
+    "slug": "alphazero-on-connect-4-from-scratch",
+    "research_evolution": "UCT turned Monte Carlo search into principled exploration, AlphaGo combined policy/value networks with MCTS and expert data, and AlphaGo Zero/AlphaZero removed human examples in favor of self-play with a shared policy-value network and PUCT. Connect-4 makes the loop tractable, but credible evaluation still needs search-budget controls, held-out opponents, symmetry augmentation, and Elo confidence intervals.",
+    "sources": [
+      {
+        "title": "Bandit Based Monte-Carlo Planning",
+        "url": "https://link.springer.com/chapter/10.1007/11871842_29",
+        "year": 2006,
+        "contribution": "Introduced UCT, applying upper-confidence-bound exploration recursively to Monte Carlo tree search.",
+        "limitations_current_improvement_angle": "Vanilla UCT lacks learned priors and can spend many simulations on weak actions; compare UCT with PUCT under equal node budgets."
+      },
+      {
+        "title": "Mastering the Game of Go with Deep Neural Networks and Tree Search",
+        "url": "https://www.nature.com/articles/nature16961",
+        "year": 2016,
+        "contribution": "Combined policy networks, value networks, Monte Carlo tree search, supervised expert learning, and reinforcement learning in AlphaGo.",
+        "limitations_current_improvement_angle": "Depends on human game records and a complex multi-network pipeline; use the contrast to motivate the simpler tabula-rasa AlphaZero loop."
+      },
+      {
+        "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm",
+        "url": "https://arxiv.org/abs/1712.01815",
+        "year": 2017,
+        "contribution": "Generalized the AlphaGo Zero method into AlphaZero: a single policy-value network trained from self-play and improved by PUCT search across several games.",
+        "limitations_current_improvement_angle": "Requires enormous compute and published results are hard to reproduce at full scale; report learning versus simulations, wall time, and opponent strength at Connect-4 scale."
+      }
+    ]
+  },
+  {
+    "slug": "build-a-retrieval-augmented-generation-pipeline-from-scratch",
+    "research_evolution": "Open-domain QA first paired neural readers with retrieved evidence, dense passage retrieval replaced lexical matching with learned bi-encoder similarity, and RAG jointly connected retrieval-backed non-parametric memory to generation. Current systems add hybrid retrieval, reranking, citation checks, and retrieval-aware evaluation because better generation cannot repair missing or irrelevant evidence.",
+    "sources": [
+      {
+        "title": "Reading Wikipedia to Answer Open-Domain Questions",
+        "url": "https://arxiv.org/abs/1704.00051",
+        "year": 2017,
+        "contribution": "Introduced DrQA, coupling document retrieval with a neural reader for large-scale open-domain question answering over Wikipedia.",
+        "limitations_current_improvement_angle": "Sparse term retrieval misses semantic matches and the reader is extractive; use it as the lexical baseline in a hybrid retriever."
+      },
+      {
+        "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+        "url": "https://arxiv.org/abs/2004.04906",
+        "year": 2020,
+        "contribution": "Introduced a dual-encoder dense retriever trained to map questions and passages into a shared vector space, substantially improving top-k retrieval on several QA benchmarks.",
+        "limitations_current_improvement_angle": "Dense retrieval can miss exact entities, depends on negative mining, and may drift across domains; combine it with BM25 and reranking, then measure recall before generation."
+      },
+      {
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "url": "https://arxiv.org/abs/2005.11401",
+        "year": 2020,
+        "contribution": "Combined a seq2seq generator with differentiable access to a dense Wikipedia index, defining sequence-level and token-level RAG variants.",
+        "limitations_current_improvement_angle": "Retrieved passages can be stale or irrelevant and generated claims need not be entailed; add corpus versioning, citation attribution, abstention, and separate retrieval/faithfulness evaluation."
+      }
+    ]
+  },
+  {
+    "slug": "direct-preference-optimization-dpo-from-scratch",
+    "research_evolution": "Pairwise preference modeling commonly begins with Bradley-Terry likelihoods; RLHF then learned a reward model and optimized a KL-regularized policy with PPO; DPO algebraically reparameterized that objective into a direct binary-classification loss over chosen/rejected responses. Subsequent work highlights sensitivity to preference noise, reference choice, beta, offline coverage, and likelihood collapse, motivating calibrated and robust objectives plus on-policy evaluation.",
+    "sources": [
+      {
+        "title": "Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons",
+        "url": "https://www.jstor.org/stable/2334029",
+        "year": 1952,
+        "contribution": "Introduced the Bradley-Terry paired-comparison model, the probabilistic preference likelihood underlying many reward and direct-preference objectives.",
+        "limitations_current_improvement_angle": "Assumes a scalar latent utility and transitive independent comparisons; test annotator disagreement, ties, and non-transitive preferences rather than treating labels as noiseless."
+      },
+      {
+        "title": "Training Language Models to Follow Instructions with Human Feedback",
+        "url": "https://arxiv.org/abs/2203.02155",
+        "year": 2022,
+        "contribution": "Demonstrated the modern SFT plus preference reward model plus PPO pipeline for aligning language models to human instructions.",
+        "limitations_current_improvement_angle": "Reward modeling and PPO are operationally complex and can exploit misspecified rewards; use this as the explicit baseline DPO seeks to simplify."
+      },
+      {
+        "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+        "url": "https://arxiv.org/abs/2305.18290",
+        "year": 2023,
+        "contribution": "Derived a closed-form relation between the optimal KL-regularized policy and reward, yielding a simple chosen-versus-rejected logistic loss without an explicit reward model or RL loop.",
+        "limitations_current_improvement_angle": "Offline pair coverage, label noise, reference-policy quality, and beta strongly affect results; add IPO-style variants, robust label handling, chosen/rejected likelihood diagnostics, and held-out win-rate evaluation."
+      },
+      {
+        "title": "A General Theoretical Paradigm to Understand Learning from Human Preferences",
+        "url": "https://arxiv.org/abs/2310.12036",
+        "year": 2023,
+        "contribution": "Developed Identity Preference Optimization and a broader analysis showing how preference objectives can overfit deterministic labels and how alternative regularization changes behavior.",
+        "limitations_current_improvement_angle": "Theory relies on preference-model assumptions and empirical behavior remains task-dependent; compare DPO and IPO under controlled noise, margin, and beta sweeps."
+      }
+    ]
+  },
+  {
+    "slug": "rlhf-from-scratch-on-distilgpt2",
+    "title": "RLHF from Scratch",
+    "sources": [
+      {
+        "title": "Learning to Summarize from Human Feedback",
+        "url": "https://arxiv.org/abs/2009.01325",
+        "year": 2020,
+        "contribution": "Established the modern language-model RLHF recipe: collect human comparisons, fit a reward model, and optimize the policy against that reward with a KL constraint.",
+        "limitationsAndImprovementAngle": "Reward models inherit annotator preferences and can be exploited; improve with richer preference data, uncertainty-aware rewards, adversarial evaluation, and explicit KL/behavior constraints."
+      },
+      {
+        "title": "Training Language Models to Follow Instructions with Human Feedback",
+        "url": "https://arxiv.org/abs/2203.02155",
+        "year": 2022,
+        "contribution": "Scaled the SFT, preference-model, and PPO pipeline into InstructGPT and demonstrated that human preference can favor a smaller aligned model over a much larger base model.",
+        "limitationsAndImprovementAngle": "The pipeline is expensive, preference data is narrow, and alignment can regress on some capabilities; improve data diversity, scalable oversight, safety evaluations, and compute-efficient policy optimization."
+      },
+      {
+        "title": "Proximal Policy Optimization Algorithms",
+        "url": "https://arxiv.org/abs/1707.06347",
+        "year": 2017,
+        "contribution": "Introduced PPO's clipped surrogate objective, enabling multiple minibatch policy updates while limiting destructive policy shifts.",
+        "limitationsAndImprovementAngle": "PPO remains sensitive to reward scale, advantage estimation, clipping, and rollout cost; improve with stronger diagnostics, adaptive KL control, and simpler preference objectives where appropriate."
+      },
+      {
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "https://arxiv.org/abs/2106.09685",
+        "year": 2021,
+        "contribution": "Introduced low-rank trainable adapters that freeze base weights, sharply reducing fine-tuning memory and checkpoint size.",
+        "limitationsAndImprovementAngle": "Fixed rank and target modules may underfit or waste capacity; improve with rank allocation, quantized bases, adapter composition, and task-specific module selection."
+      }
+    ],
+    "researchEvolution": "Preference learning evolved from reward-model-plus-policy-gradient experiments to the standardized SFT → reward model → PPO stack, then toward parameter-efficient and direct preference methods. A current implementation should treat reward hacking, KL drift, annotator disagreement, and evaluation breadth as first-class concerns rather than viewing PPO loss alone as evidence of alignment."
+  },
+  {
+    "slug": "vision-language-model-from-scratch-in-pytorch",
+    "title": "Vision-Language Model",
+    "sources": [
+      {
+        "title": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale",
+        "url": "https://arxiv.org/abs/2010.11929",
+        "year": 2020,
+        "contribution": "Introduced Vision Transformer patch tokenization and a pure Transformer image encoder, forming the visual backbone pattern used by many VLMs.",
+        "limitationsAndImprovementAngle": "Vanilla ViT is data-hungry and quadratic in patch count; improve with stronger pretraining, hierarchical or efficient attention, and resolution-aware token reduction."
+      },
+      {
+        "title": "Learning Transferable Visual Models From Natural Language Supervision",
+        "url": "https://arxiv.org/abs/2103.00020",
+        "year": 2021,
+        "contribution": "Introduced CLIP's large-scale contrastive image-text pretraining and zero-shot transfer through natural-language prompts.",
+        "limitationsAndImprovementAngle": "Web supervision carries social bias, weak localization, and prompt sensitivity; improve data curation, region-level grounding, calibration, and subgroup evaluation."
+      },
+      {
+        "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+        "url": "https://arxiv.org/abs/2204.14198",
+        "year": 2022,
+        "contribution": "Connected frozen vision and language models with a Perceiver resampler and gated cross-attention for interleaved image-text few-shot learning.",
+        "limitationsAndImprovementAngle": "Training remains very costly and frozen components can limit adaptation; improve token compression, targeted unfreezing, data efficiency, and grounding fidelity."
+      },
+      {
+        "title": "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models",
+        "url": "https://arxiv.org/abs/2301.12597",
+        "year": 2023,
+        "contribution": "Introduced a lightweight Querying Transformer that bridges frozen image encoders and frozen LLMs with far fewer trainable parameters.",
+        "limitationsAndImprovementAngle": "A compact bottleneck may discard fine spatial detail and inherits frozen-model biases; improve adaptive visual token selection, higher-resolution grounding, and hallucination-aware training."
+      }
+    ],
+    "researchEvolution": "The field moved from patch-based visual Transformers and contrastive dual encoders to generative systems that bridge pretrained vision and language towers. The key modern question is no longer merely how to project image features into a decoder, but how to preserve spatial evidence, reduce visual-token cost, and measure grounded rather than fluent generation."
+  },
+  {
+    "slug": "flash-attention-in-cuda-from-scratch",
+    "title": "Flash Attention in CUDA",
+    "sources": [
+      {
+        "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+        "url": "https://arxiv.org/abs/2205.14135",
+        "year": 2022,
+        "contribution": "Reframed exact attention around GPU memory traffic, using tiling and online softmax to avoid materializing the quadratic score matrix in HBM.",
+        "limitationsAndImprovementAngle": "The first work partition underutilized some GPU configurations; improve warp/block partitioning, sequence parallelism, head-dimension coverage, and hardware-specific tuning."
+      },
+      {
+        "title": "FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning",
+        "url": "https://arxiv.org/abs/2307.08691",
+        "year": 2023,
+        "contribution": "Reduced non-matmul work and redesigned thread-block and warp partitioning, reaching substantially higher GPU utilization.",
+        "limitationsAndImprovementAngle": "Performance still depends on architecture, shapes, masks, and precision; improve autotuning, newer tensor-core paths, FP8 support, and irregular-attention handling."
+      },
+      {
+        "title": "CUDA Programming Guide",
+        "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+        "year": 2026,
+        "contribution": "Official specification for CUDA's execution, thread hierarchy, memory hierarchy, synchronization, numerical behavior, and modern tile-kernel facilities.",
+        "limitationsAndImprovementAngle": "Documentation defines mechanisms rather than an optimal attention kernel; implementations still require measurement-driven tile sizes, occupancy analysis, and numerical validation on target GPUs."
+      }
+    ],
+    "researchEvolution": "Exact attention optimization shifted from counting FLOPs to minimizing HBM traffic, then to maximizing on-chip work partition efficiency. A current implementation should prove equivalence to reference attention, profile actual bytes and occupancy, and specialize carefully for causal masks, variable shapes, and new precision formats."
+  },
+  {
+    "slug": "fused-llm-inference-kernels-in-cuda",
+    "title": "Fused LLM Inference Kernels",
+    "sources": [
+      {
+        "title": "CUDA Programming Guide",
+        "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+        "year": 2026,
+        "contribution": "Defines CUDA kernels, warps, shared memory, synchronization, asynchronous copies, and floating-point semantics needed to implement fused inference operations correctly.",
+        "limitationsAndImprovementAngle": "The guide is general-purpose; each fused kernel needs shape-aware benchmarking, occupancy checks, bank-conflict analysis, and reference comparisons."
+      },
+      {
+        "title": "NVIDIA cuDNN Documentation",
+        "url": "https://docs.nvidia.com/deeplearning/cudnn/latest/",
+        "year": 2026,
+        "contribution": "Provides official optimized primitives and graph-level fusion support for normalization, softmax, pointwise operations, and attention-related workloads.",
+        "limitationsAndImprovementAngle": "Library fusion may not cover unusual layouts or tiny custom models; use it as a correctness/performance baseline and fuse custom paths only with measured benefit."
+      },
+      {
+        "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding",
+        "url": "https://arxiv.org/abs/2104.09864",
+        "year": 2021,
+        "contribution": "Introduced rotary position embeddings, encoding relative position through paired rotations that can be fused into Q/K preparation.",
+        "limitationsAndImprovementAngle": "Long-context extrapolation and frequency allocation can degrade; improve with scaling variants, precision-aware sin/cos handling, and layout-friendly fusion."
+      },
+      {
+        "title": "GLU Variants Improve Transformer",
+        "url": "https://arxiv.org/abs/2002.05202",
+        "year": 2020,
+        "contribution": "Established gated feed-forward variants including SwiGLU, motivating fused projection, activation, and gating kernels in modern LLMs.",
+        "limitationsAndImprovementAngle": "Extra projection cost and memory traffic can erase gains without fusion; improve epilogue fusion, quantized paths, and shape-specific dispatch."
+      }
+    ],
+    "researchEvolution": "Modern LLM inference increasingly treats RMSNorm, RoPE, softmax, and gated MLP work as memory-bound pipelines whose intermediate tensors should remain on chip. The improvement frontier is shape-aware fusion that preserves numerical stability and beats vendor-library baselines rather than fusion for its own sake."
+  },
+  {
+    "slug": "build-a-mini-llm-inference-server",
+    "title": "Mini LLM Inference Server",
+    "sources": [
+      {
+        "title": "Orca: A Distributed Serving System for Transformer-Based Generative Models",
+        "url": "https://www.usenix.org/conference/osdi22/presentation/yu",
+        "year": 2022,
+        "contribution": "Introduced iteration-level scheduling and selective batching so requests can join and leave a batch at token boundaries.",
+        "limitationsAndImprovementAngle": "Scheduling alone does not eliminate KV-memory fragmentation or prefill/decode interference; improve with paged allocation, chunked prefill, and explicit latency SLO control."
+      },
+      {
+        "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
+        "year": 2023,
+        "contribution": "Introduced PagedAttention and vLLM, mapping logical KV blocks to non-contiguous physical blocks to reduce fragmentation and enable sharing.",
+        "limitationsAndImprovementAngle": "Block tables and scheduling add overhead, while long prompts can still dominate; improve prefix caching, disaggregated prefill/decode, eviction policies, and multi-GPU placement."
+      },
+      {
+        "title": "FastAPI Documentation",
+        "url": "https://fastapi.tiangolo.com/",
+        "year": 2026,
+        "contribution": "Official API documentation for typed request validation, asynchronous endpoints, streaming responses, cancellation-aware application structure, and OpenAPI generation.",
+        "limitationsAndImprovementAngle": "A web framework does not solve GPU scheduling or backpressure; isolate API concerns from the model scheduler and instrument queueing, cancellation, and stream closure explicitly."
+      },
+      {
+        "title": "NVIDIA Nsight Systems User Guide",
+        "url": "https://docs.nvidia.com/nsight-systems/UserGuide/",
+        "year": 2026,
+        "contribution": "Official system profiler for correlating CPU scheduling, CUDA launches, memory operations, and GPU execution during serving.",
+        "limitationsAndImprovementAngle": "Traces reveal symptoms but need workload-controlled interpretation; benchmark warm and steady states across prompt/output lengths and concurrency, not a single request."
+      }
+    ],
+    "researchEvolution": "Serving evolved from static batches to iteration-level continuous batching and then paged KV-memory management. Current work focuses on prefix reuse, mixed prefill/decode scheduling, cancellation-safe allocation, distributed placement, and maximizing tokens per second subject to explicit TTFT and inter-token latency SLOs."
+  },
+  {
+    "slug": "verillm-publicly-verifiable-decentralized-llm-inference-from-scr",
+    "title": "VeriLLM",
+    "sources": [
+      {
+        "title": "A Digital Signature Based on a Conventional Encryption Function",
+        "url": "https://people.eecs.berkeley.edu/~raluca/cs261-f15/readings/merkle.pdf",
+        "year": 1987,
+        "contribution": "Introduced Merkle-tree authentication, enabling compact membership proofs for committed execution artifacts.",
+        "limitationsAndImprovementAngle": "Merkle proofs establish inclusion, not that an inference computation is correct; pair commitments with unpredictable challenges, replicated execution, or stronger proofs."
+      },
+      {
+        "title": "Probabilistic Machines Can Use Less Running Time",
+        "url": "https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/FREI79/frei79.pdf",
+        "year": 1979,
+        "contribution": "Introduced randomized verification of matrix multiplication, the conceptual basis for cheap probabilistic checks of linear computation.",
+        "limitationsAndImprovementAngle": "A soundness probability replaces deterministic proof and nonlinear layers need separate treatment; compose checks carefully and report cumulative detection probability."
+      },
+      {
+        "title": "SafetyNets: Verifiable Execution of Deep Neural Networks on an Untrusted Cloud",
+        "url": "https://arxiv.org/abs/1706.10268",
+        "year": 2017,
+        "contribution": "Applied interactive-proof techniques to neural-network inference, demonstrating verifiable outsourced DNN computation.",
+        "limitationsAndImprovementAngle": "Proof overhead and supported operations constrain modern LLM scale; improve quantization/proof-friendly operators, batching, recursive proofs, or transparent probabilistic auditing."
+      },
+      {
+        "title": "Towards Verifiable AI with Lightweight Cryptographic Proofs of Inference",
+        "url": "https://arxiv.org/abs/2603.19025",
+        "year": 2026,
+        "contribution": "Commits inference traces with Merkle-based vector commitments and verifies sampled paths, trading full cryptographic soundness for millisecond-scale auditing.",
+        "limitationsAndImprovementAngle": "Sampling can miss adversarial faults and relies on trace-separation assumptions; strengthen adaptive challenge design, repeated audits, committee diversity, and calibrated slashing."
+      }
+    ],
+    "researchEvolution": "Verifiable inference spans a spectrum from fully cryptographic proofs to randomized algebraic checks and lightweight trace spot checks. A decentralized prototype must state its threat model precisely: commitments plus committee voting provide deterrence and auditability, not the same guarantee as a succinct proof of every operation."
+  },
+  {
+    "slug": "build-an-mlp-in-jax-from-scratch",
+    "title": "MLP in JAX from Scratch",
+    "sources": [
+      {
+        "title": "JAX: Autograd and XLA",
+        "url": "https://github.com/jax-ml/jax",
+        "year": 2018,
+        "contribution": "Official JAX implementation and design entry point for NumPy-style numerical programs transformed by autodiff, compilation, vectorization, and parallelization.",
+        "limitationsAndImprovementAngle": "Transformations impose purity, tracing, and static-shape constraints; teach explicit state flow and inspect recompilation rather than treating JAX as eager NumPy."
+      },
+      {
+        "title": "The Autodiff Cookbook",
+        "url": "https://docs.jax.dev/en/latest/notebooks/autodiff_cookbook.html",
+        "year": 2026,
+        "contribution": "Official explanation of grad, JVP, VJP, Jacobians, and higher-order differentiation using composable transformations.",
+        "limitationsAndImprovementAngle": "Correct gradients do not ensure stable optimization; add finite-difference checks, dtype awareness, initialization analysis, and train/validation diagnostics."
+      },
+      {
+        "title": "Quickstart: How to Think in JAX",
+        "url": "https://docs.jax.dev/en/latest/quickstart.html",
+        "year": 2026,
+        "contribution": "Official guide to jit, automatic vectorization with vmap, accelerator execution, and composability of JAX transformations.",
+        "limitationsAndImprovementAngle": "Compilation latency and accidental retracing can obscure gains; benchmark with block_until_ready, separate compile time, and stabilize shapes and static arguments."
+      },
+      {
+        "title": "JAX PRNG Design",
+        "url": "https://docs.jax.dev/en/latest/jep/263-prng.html",
+        "year": 2026,
+        "contribution": "Defines JAX's explicit, functional, splittable random-key model for reproducible parallel numerical programs.",
+        "limitationsAndImprovementAngle": "Key reuse silently correlates samples; improve with disciplined key ownership, splitting conventions, reproducibility tests, and multi-device fold-in."
+      }
+    ],
+    "researchEvolution": "JAX's educational value is the composition of pure functions with grad, jit, and vmap, not merely reimplementing an MLP. A strong project should expose jaxprs or tracing behavior, separate compilation from execution benchmarks, and make parameter, optimizer, and PRNG state explicit."
+  },
+  {
+    "slug": "build-your-own-teenygrad-a-tiny-tensor-autograd-engine",
+    "title": "Build Your Own teenygrad",
+    "sources": [
+      {
+        "title": "Automatic Differentiation in Machine Learning: a Survey",
+        "url": "https://arxiv.org/abs/1502.05767",
+        "year": 2015,
+        "contribution": "Formalized forward and reverse automatic differentiation, computational graphs, and the distinction between symbolic, numerical, and automatic differentiation.",
+        "limitationsAndImprovementAngle": "The survey gives principles rather than a tensor runtime; implement broadcasting-aware local Jacobian rules, topological traversal, and gradient accumulation tests."
+      },
+      {
+        "title": "PyTorch Autograd Mechanics",
+        "url": "https://docs.pytorch.org/docs/stable/notes/autograd.html",
+        "year": 2026,
+        "contribution": "Official description of PyTorch's dynamic reverse-mode graph, saved tensors, leaf gradients, no-grad modes, and in-place correctness checks.",
+        "limitationsAndImprovementAngle": "Production autograd semantics are much broader than a tiny engine; define a deliberate subset and add gradcheck, mutation rules, and graph-lifetime behavior incrementally."
+      },
+      {
+        "title": "micrograd",
+        "url": "https://github.com/karpathy/micrograd",
+        "year": 2020,
+        "contribution": "Original compact scalar reverse-mode autodiff engine and neural-network library demonstrating graph construction and backpropagation in minimal code.",
+        "limitationsAndImprovementAngle": "Scalar operations hide tensor broadcasting, layout, and vectorized kernels; extend to ndarray primitives, explicit reduction gradients, and batched gradient tests."
+      },
+      {
+        "title": "tinygrad",
+        "url": "https://github.com/tinygrad/tinygrad",
+        "year": 2020,
+        "contribution": "Original small tensor framework combining lazy execution, autograd, graph rewriting, scheduling, and multiple hardware backends.",
+        "limitationsAndImprovementAngle": "Its evolving optimizer and backend internals are complex teaching targets; isolate a stable lazy IR, specify aliasing/layout invariants, and test realization and gradient graphs separately."
+      }
+    ],
+    "researchEvolution": "Educational autodiff typically starts with scalar dynamic graphs, then grows into tensor broadcasting and finally lazy graph scheduling and backend lowering. The crucial improvement is to separate three concerns—mathematical differentiation, tensor shape semantics, and execution scheduling—so errors are locally testable rather than hidden in one monolithic Tensor class."
+  },
+  {
+    "slug": "federated-averaging-fedavg-from-scratch-in-pytorch",
+    "title": "Federated Averaging",
+    "sources": [
+      {
+        "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+        "url": "https://arxiv.org/abs/1602.05629",
+        "year": 2017,
+        "contribution": "Introduced FedAvg: repeated client sampling, local SGD, and data-size-weighted model averaging, reducing communication rounds over synchronized SGD.",
+        "limitationsAndImprovementAngle": "Client drift under heterogeneous non-IID data and unequal participation can slow or bias convergence; measure cohort behavior and compare robust optimizers."
+      },
+      {
+        "title": "Federated Optimization in Heterogeneous Networks",
+        "url": "https://arxiv.org/abs/1812.06127",
+        "year": 2020,
+        "contribution": "Introduced FedProx, adding a proximal local objective and systems-aware handling of variable client work to improve robustness under heterogeneity.",
+        "limitationsAndImprovementAngle": "The proximal coefficient is problem-dependent and does not remove all drift; tune by heterogeneity and compare convergence, subgroup quality, and communication cost."
+      },
+      {
+        "title": "SCAFFOLD: Stochastic Controlled Averaging for Federated Learning",
+        "url": "https://arxiv.org/abs/1910.06378",
+        "year": 2020,
+        "contribution": "Introduced server and client control variates that correct local-update drift caused by heterogeneous client objectives.",
+        "limitationsAndImprovementAngle": "Control state adds storage and communication, especially at massive client scale; study compression, partial-state updates, and realistic dropout."
+      },
+      {
+        "title": "Practical Secure Aggregation for Privacy-Preserving Machine Learning",
+        "url": "https://dl.acm.org/doi/10.1145/3133956.3133982",
+        "year": 2017,
+        "contribution": "Designed a dropout-resilient protocol that lets a server recover only an aggregate of client updates rather than each individual update.",
+        "limitationsAndImprovementAngle": "Secure aggregation hides individual updates but does not prevent poisoning or guarantee differential privacy; combine authentication, robust aggregation, clipping/noise, and audit controls."
+      }
+    ],
+    "researchEvolution": "Federated learning progressed from communication-efficient local SGD averaging to explicit corrections for statistical and systems heterogeneity, alongside secure aggregation and differential-privacy mechanisms. Modern evaluation must report client/subgroup distributions, participation and dropout patterns, communication, privacy assumptions, and worst-client outcomes—not just global accuracy."
+  },
+  {
+    "slug": "diloco-distributed-low-communication-training-of-language-models",
+    "title": "DiLoCo Distributed Training",
+    "sources": [
+      {
+        "title": "DiLoCo: Distributed Low-Communication Training of Language Models",
+        "url": "https://arxiv.org/abs/2311.08105",
+        "year": 2023,
+        "contribution": "Introduces long AdamW inner loops and a Nesterov outer optimizer, matching synchronous training on eight workers while reporting 500-fold fewer communication rounds.",
+        "limitations_and_improvement_angle": "Original experiments are modest in worker count and model scale; test larger heterogeneous clusters, asynchronous participation, compression, and end-to-end wall-clock cost."
+      },
+      {
+        "title": "OpenDiLoCo: An Open-Source Framework for Globally Distributed Low-Communication Training",
+        "url": "https://arxiv.org/abs/2407.07852",
+        "year": 2024,
+        "contribution": "Replicates DiLoCo across countries, publishes a scalable implementation, studies worker scaling and FP16 delta exchange, and reaches billion-parameter scale.",
+        "limitations_and_improvement_angle": "Still relies on controlled experiments and relatively stable workers; improve fault recovery, topology-aware aggregation, security, and reproducibility on unreliable WAN links."
+      },
+      {
+        "title": "DiLoCoX: A Low-Communication Large-Scale Training Framework for Decentralized Cluster",
+        "url": "https://arxiv.org/abs/2506.21263",
+        "year": 2025,
+        "contribution": "Extends the dual-optimizer idea with pipeline parallelism, delayed communication overlap, and adaptive gradient compression, demonstrating 107B-parameter training over 1 Gbps links.",
+        "limitations_and_improvement_angle": "System complexity and hardware-specific results complicate replication; isolate each optimization and compare quality, energy, and cost under realistic failures."
+      }
+    ],
+    "research_evolution": "Local-update and federated-style optimization evolved into DiLoCo's dual-optimizer recipe, then into open WAN replication and finally very-large-model systems that overlap and compress outer communication."
+  },
+  {
+    "slug": "mini-distributed-training-and-memory-constrained-trainer-from-sc",
+    "title": "Memory-Constrained Trainer",
+    "sources": [
+      {
+        "title": "Training Deep Nets with Sublinear Memory Cost",
+        "url": "https://arxiv.org/abs/1604.06174",
+        "year": 2016,
+        "contribution": "Formalizes activation checkpointing: discard selected activations and recompute them during backward to reduce memory below linear growth in network depth.",
+        "limitations_and_improvement_angle": "Recomputation adds runtime and static checkpoint schedules can be suboptimal; use budget-aware or compiler-selected schedules and profile real kernels."
+      },
+      {
+        "title": "Mixed Precision Training",
+        "url": "https://arxiv.org/abs/1710.03740",
+        "year": 2017,
+        "contribution": "Shows FP16 compute with FP32 master weights and loss scaling can preserve model quality while improving throughput and memory use.",
+        "limitations_and_improvement_angle": "FP16 underflow and overflow require care; compare BF16 and FP8, dynamic scaling, accumulator precision, and numerical error by layer."
+      },
+      {
+        "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+        "url": "https://arxiv.org/abs/1910.02054",
+        "year": 2019,
+        "contribution": "Partitions optimizer state, gradients, and parameters across data-parallel ranks to remove redundant memory while retaining data-parallel semantics.",
+        "limitations_and_improvement_angle": "Higher stages increase collective communication and sensitivity to topology; model peak live tensors, overlap collectives, and compare sharding choices by network tier."
+      },
+      {
+        "title": "PyTorch DistributedDataParallel Documentation",
+        "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html",
+        "year": 2026,
+        "contribution": "Official semantics for gradient synchronization, process groups, bucketing, accumulation with no_sync, and practical distributed execution.",
+        "limitations_and_improvement_angle": "Documentation specifies behavior rather than optimal policy; benchmark bucket size, overlap, stragglers, deterministic recovery, and memory fragmentation."
+      }
+    ],
+    "research_evolution": "Memory-efficient training progressed from recomputing activations and reduced-precision arithmetic to partitioning every redundant training state, with modern trainers composing all three techniques."
+  },
+  {
+    "slug": "trainable-mixture-of-experts-in-cuda",
+    "title": "Trainable MoE in CUDA",
+    "sources": [
+      {
+        "title": "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer",
+        "url": "https://arxiv.org/abs/1701.06538",
+        "year": 2017,
+        "contribution": "Establishes sparse learned gating, top-k expert selection, and auxiliary load balancing to scale capacity without proportional compute.",
+        "limitations_and_improvement_angle": "Routing can collapse and distributed dispatch is expensive; study stable routing losses, expert capacity, deterministic token packing, and communication-aware kernels."
+      },
+      {
+        "title": "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity",
+        "url": "https://arxiv.org/abs/2101.03961",
+        "year": 2021,
+        "contribution": "Simplifies MoE routing to one expert per token and develops recipes that improve scale and stability in reduced precision.",
+        "limitations_and_improvement_angle": "Capacity limits can drop tokens and top-1 routing reduces expert diversity; compare dropless routing, top-2 quality, shared experts, and imbalance under skew."
+      },
+      {
+        "title": "MegaBlocks: Efficient Sparse Training with Mixture-of-Experts",
+        "url": "https://arxiv.org/abs/2211.15841",
+        "year": 2022,
+        "contribution": "Recasts dynamic MoE computation as block-sparse matrix operations, enabling dropless GPU execution and substantial training speedups.",
+        "limitations_and_improvement_angle": "Performance depends on token distribution, block size, and hardware; fuse routing and dispatch, autotune blocks, and measure forward plus backward occupancy."
+      },
+      {
+        "title": "CUDA C++ Programming Guide",
+        "url": "https://docs.nvidia.com/cuda/cuda-c-programming-guide/",
+        "year": 2026,
+        "contribution": "Official reference for CUDA execution, memory hierarchy, synchronization, atomics, streams, occupancy, and performance constraints used by custom MoE kernels.",
+        "limitations_and_improvement_angle": "The guide is general rather than MoE-specific; validate assumptions with Nsight, coalescing tests, race checks, and architecture-specific tuning."
+      }
+    ],
+    "research_evolution": "MoE research moved from sparse capacity scaling, to simpler top-1 routing, to dropless block-sparse GPU systems; the remaining frontier is jointly optimizing routing quality, dispatch communication, and kernel efficiency."
+  },
+  {
+    "slug": "multimodal-autoregressive-image-generator-from-scratch-in-jax",
+    "title": "Multimodal Image Generator",
+    "sources": [
+      {
+        "title": "Neural Discrete Representation Learning",
+        "url": "https://arxiv.org/abs/1711.00937",
+        "year": 2017,
+        "contribution": "Introduces VQ-VAE, learning a discrete image codebook with encoder, nearest-code quantization, decoder, commitment loss, and straight-through gradients.",
+        "limitations_and_improvement_angle": "Codebook collapse and reconstruction bottlenecks can limit fidelity; improve utilization, residual quantization, perceptual losses, and tokenizer evaluation."
+      },
+      {
+        "title": "Zero-Shot Text-to-Image Generation",
+        "url": "https://arxiv.org/abs/2102.12092",
+        "year": 2021,
+        "contribution": "Demonstrates a single autoregressive transformer modeling text tokens followed by discrete image tokens at large scale.",
+        "limitations_and_improvement_angle": "Autoregressive image decoding is sequential and expensive, while tokenizer errors are irreversible; explore better ordering, parallel decoding, and stronger image tokenizers."
+      },
+      {
+        "title": "Scaling Autoregressive Models for Content-Rich Text-to-Image Generation",
+        "url": "https://arxiv.org/abs/2206.10789",
+        "year": 2022,
+        "contribution": "Parti scales encoder-decoder autoregressive text-to-image modeling and systematizes prompt-based evaluation of composition and world knowledge.",
+        "limitations_and_improvement_angle": "Scale drives quality but raises training and sampling cost; test smaller reproducible models, richer alignment metrics, and compositional stress sets."
+      },
+      {
+        "title": "The Training Cookbook — JAX Documentation",
+        "url": "https://docs.jax.dev/en/latest/the-training-cookbook.html",
+        "year": 2026,
+        "contribution": "Official high-performance patterns for explicit PRNG state, jit, value-and-grad, optimizer state, sharding, and compiled training loops.",
+        "limitations_and_improvement_angle": "Recipes are general and fast-moving; pin versions, test recompilation triggers, make shapes static, and profile device memory and collectives."
+      }
+    ],
+    "research_evolution": "Discrete image tokenizers made pixels compatible with language-model objectives; DALL-E and Parti then scaled autoregressive text-conditioned generation, while modern work targets faster decoding and better tokenizers."
+  },
+  {
+    "slug": "lora-fine-tune-a-tiny-chat-model-with-unsloth",
+    "title": "LoRA Fine-Tune a Chat Model",
+    "sources": [
+      {
+        "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "url": "https://arxiv.org/abs/2106.09685",
+        "year": 2021,
+        "contribution": "Freezes pretrained weights and learns low-rank update matrices in selected projections, sharply reducing trainable parameters and checkpoint size.",
+        "limitations_and_improvement_angle": "Fixed rank and target modules may waste capacity; compare rank allocation, adapter composition, merge error, and full fine-tuning at equal compute."
+      },
+      {
+        "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+        "url": "https://arxiv.org/abs/2305.14314",
+        "year": 2023,
+        "contribution": "Backpropagates through a frozen 4-bit NF4 model into LoRA adapters using double quantization and paged optimizers, enabling large-model tuning on one GPU.",
+        "limitations_and_improvement_angle": "Quantization and dataset quality can hide regressions; audit perplexity, task quality, memory spikes, merge precision, and quantization-aware serving."
+      },
+      {
+        "title": "Unsloth Fine-tuning Guide",
+        "url": "https://docs.unsloth.ai/get-started/fine-tuning-guide",
+        "year": 2026,
+        "contribution": "Official workflow for optimized model loading, LoRA configuration, chat templates, supervised fine-tuning, saving, merging, and inference.",
+        "limitations_and_improvement_angle": "APIs and supported model recipes evolve quickly; pin versions, record templates and EOS behavior, verify label masks, and compare generated outputs before and after merge."
+      },
+      {
+        "title": "TRL SFTTrainer Documentation",
+        "url": "https://huggingface.co/docs/trl/sft_trainer",
+        "year": 2026,
+        "contribution": "Official supervised fine-tuning interface documenting conversational datasets, chat templates, packing, completion-only loss, PEFT integration, and training configuration.",
+        "limitations_and_improvement_angle": "Convenient defaults can obscure masking and truncation; inspect rendered examples, token counts, loss masks, packing boundaries, and held-out behavior."
+      }
+    ],
+    "research_evolution": "LoRA reduced adaptation to low-rank updates; QLoRA made the frozen backbone 4-bit; optimized stacks such as Unsloth now focus on kernel efficiency and reproducible data-to-export workflows."
+  },
+  {
+    "slug": "a-b-testing-causal-inference-toolkit",
+    "title": "A/B Testing & Causal Inference",
+    "sources": [
+      {
+        "title": "How Much Should We Trust Differences-in-Differences Estimates?",
+        "url": "https://www.nber.org/papers/w8841",
+        "year": 2002,
+        "contribution": "Shows serial correlation can severely understate DiD standard errors and develops collapsed-data, robust-covariance, and randomization-inference remedies.",
+        "limitations_and_improvement_angle": "Classical two-way DiD can fail with staggered timing and heterogeneous effects; add modern group-time estimands, pre-trend plots, clustering, and placebo tests."
+      },
+      {
+        "title": "The Economic Costs of Conflict: A Case Study of the Basque Country",
+        "url": "https://www.nber.org/papers/w8478",
+        "year": 2001,
+        "contribution": "Develops the synthetic-control idea by constructing a weighted comparison unit that closely matches the treated region before intervention.",
+        "limitations_and_improvement_angle": "Credibility depends on donor quality and pre-period fit; report weights, RMSPE, placebo gaps, leave-one-out sensitivity, and contamination checks."
+      },
+      {
+        "title": "Synthetic Difference in Differences",
+        "url": "https://www.nber.org/papers/w25532",
+        "year": 2019,
+        "contribution": "Combines unit and time weighting from synthetic control with DiD to improve robustness under latent factor structures.",
+        "limitations_and_improvement_angle": "Inference and overlap still depend on panel structure; compare against transparent baselines and probe sensitivity to pre-period length and donor exclusion."
+      },
+      {
+        "title": "Statsmodels Proportion Power Documentation",
+        "url": "https://www.statsmodels.org/stable/generated/statsmodels.stats.power.NormalIndPower.html",
+        "year": 2026,
+        "contribution": "Official implementation reference for sample size, effect size, significance, and power calculations for two independent proportions.",
+        "limitations_and_improvement_angle": "Asymptotic calculations do not replace design checks; account for clustering, attrition, sequential monitoring, multiple testing, and practical effect thresholds."
+      }
+    ],
+    "research_evolution": "Randomized tests remain the cleanest design when assignment is possible; observational work evolved from DiD and synthetic controls toward weighted hybrids, with diagnostics and valid uncertainty central to every method."
+  },
+  {
+    "slug": "market-making-betting-game-simulator",
+    "title": "Market-Making Simulator",
+    "sources": [
+      {
+        "title": "A New Interpretation of Information Rate",
+        "url": "https://www.princeton.edu/~wbialek/rome/refs/kelly_56.pdf",
+        "year": 1956,
+        "contribution": "Derives logarithmic wealth growth as a principled sizing objective for favorable repeated bets, linking information and long-run capital growth.",
+        "limitations_and_improvement_angle": "Kelly assumes known probabilities and can produce volatile paths; model estimation error, fractional Kelly, drawdown constraints, and ruin risk."
+      },
+      {
+        "title": "High-Frequency Trading in a Limit Order Book",
+        "url": "https://people.orie.cornell.edu/sfs33/LimitOrderBook.pdf",
+        "year": 2008,
+        "contribution": "Derives inventory-aware reservation prices and optimal bid/ask offsets under diffusive mid-price and Poisson order arrivals.",
+        "limitations_and_improvement_angle": "Poisson fills, constant volatility, and no adverse-selection state are stylized; calibrate time-varying intensity, latency, fees, queue position, and toxic flow."
+      },
+      {
+        "title": "Dealing with the Inventory Risk: A Solution to the Market Making Problem",
+        "url": "https://arxiv.org/abs/1105.3115",
+        "year": 2011,
+        "contribution": "Solves and approximates the inventory-constrained stochastic control problem through a tractable system of linear ODEs.",
+        "limitations_and_improvement_angle": "Closed forms still inherit simplified market dynamics; stress-test parameter misspecification, hard inventory limits, regime shifts, and hedging."
+      },
+      {
+        "title": "High-Frequency Market-Making with Inventory Constraints and Directional Bets",
+        "url": "https://arxiv.org/abs/1206.4810",
+        "year": 2012,
+        "contribution": "Extends inventory-aware quoting to general mid-price dynamics and directional signals with explicit terminal inventory penalties.",
+        "limitations_and_improvement_angle": "Directional alpha can amplify model risk; separate spread capture from prediction P&L and evaluate tail risk, turnover, and out-of-sample calibration."
+      }
+    ],
+    "research_evolution": "The project can begin with expected-value and Kelly betting, then add inventory-aware reservation prices, tractable constrained control, and finally directional signals under realistic execution and risk stress tests."
+  },
+  {
+    "slug": "reinforcement-learning-for-tic-tac-toe-from-minimax-to-dqn",
+    "title": "Tic-Tac-Toe: Minimax to DQN",
+    "sources": [
+      {
+        "title": "Programming a Computer for Playing Chess",
+        "url": "https://vision.unipv.it/IA1/ProgrammingaComputerforPlayingChess.pdf",
+        "year": 1950,
+        "contribution": "Lays out minimax-style game-tree search, evaluation functions, and pruning ideas that underpin exact planning baselines in deterministic board games.",
+        "limitations_and_improvement_angle": "Exact search depends on tractable trees and hand-designed terminal logic; use symmetry reduction, memoization, and a solved-game oracle for verification."
+      },
+      {
+        "title": "Q-learning",
+        "url": "https://doi.org/10.1007/BF00992698",
+        "year": 1992,
+        "contribution": "Provides the tabular off-policy temporal-difference update and convergence theorem under repeated state-action sampling.",
+        "limitations_and_improvement_angle": "Convergence guarantees assume discrete tables and sufficient exploration; quantify self-play coverage, nonstationarity, symmetry, and draw-valued states."
+      },
+      {
+        "title": "Human-level Control through Deep Reinforcement Learning",
+        "url": "https://doi.org/10.1038/nature14236",
+        "year": 2015,
+        "contribution": "Stabilizes neural Q-learning with experience replay and a target network, demonstrating end-to-end value learning from high-dimensional observations.",
+        "limitations_and_improvement_angle": "DQN can overestimate values and is sample-inefficient; compare Double DQN, legal-action masking, prioritized replay, and exact minimax exploitability."
+      },
+      {
+        "title": "Reinforcement Learning (DQN) Tutorial — PyTorch",
+        "url": "https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html",
+        "year": 2026,
+        "contribution": "Official implementation reference for replay memory, epsilon-greedy exploration, target networks, temporal-difference loss, optimization, and evaluation.",
+        "limitations_and_improvement_angle": "A tutorial is not a correctness oracle; test terminal targets, illegal moves, deterministic seeds, opponent strength, and evaluation without exploration."
+      }
+    ],
+    "research_evolution": "Tic-tac-toe exposes the full ladder from exact minimax, to tabular bootstrapping under self-play, to neural DQN with replay and target networks; solved-game outcomes make policy quality directly auditable."
+  }
+]

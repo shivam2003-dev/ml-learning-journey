@@ -1,0 +1,8 @@
+[project]
+name = "build-an-mlp-in-jax-from-scratch"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["numpy", "torch; platform_machine != 'none'", "jax; platform_machine != 'none'"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
