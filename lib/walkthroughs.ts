@@ -35,7 +35,7 @@ function equation(project: Project, part: OutlinePart, step: OutlineStep) {
   if (text.includes("action_mask")) return String.raw`m_a=\mathbb{1}[a\in\mathcal{A}(B)],\qquad z'_a=\begin{cases}z_a&m_a=1\\-\infty&m_a=0\end{cases}`;
   if (text.includes("visit_count_policy")) return String.raw`\pi(a\mid s)=\frac{N(s,a)^{1/\tau}}{\sum_b N(s,b)^{1/\tau}}`;
   if (text.includes("backup_value")) return String.raw`N(s,a)\leftarrow N(s,a)+1,\qquad W(s,a)\leftarrow W(s,a)+(-1)^d v`;
-  if (text.includes("gini")) return String.raw`G(S)=1-\sum_{k=1}^{K}p_k^2`;
+  if (text.includes("gini") || text.includes("impurity")) return String.raw`G(S)=1-\sum_{k=1}^{K}p_k^2`;
   if (text.includes("svm") || text.includes("hinge")) return String.raw`\mathcal{L}(\mathbf{w},b)=\frac{\lambda}{2}\lVert\mathbf{w}\rVert_2^2+\frac{1}{n}\sum_{i=1}^{n}\max(0,1-y_i(\mathbf{w}^{\top}\mathbf{x}_i+b))`;
   if (text.includes("ucb") || text.includes("puct")) return String.raw`U(s,a)=Q(s,a)+c_{\mathrm{puct}}P(s,a)\frac{\sqrt{\sum_b N(s,b)}}{1+N(s,a)}`;
   if (text.includes("q_value") || text.includes("q-learning") || text.includes("bellman")) return String.raw`Q(s,a)\leftarrow Q(s,a)+\alpha\left[r+\gamma\max_{a'}Q(s',a')-Q(s,a)\right]`;
@@ -84,6 +84,10 @@ function codeFor(location: StepLocation) {
 
 export function buildStepLesson(location: StepLocation) {
   const label = humanize(location.step.title); const code = codeFor(location);
+  const functionName = location.step.title.replace(/[^a-zA-Z0-9_]/g, "_");
+  const tests = location.project.framework.includes("CUDA")
+    ? `// Compile this harness with nvcc and run it under compute-sanitizer.\nTEST(${functionName}, preserves_values_for_a_single_block) {\n    std::vector<float> input{1.0f, -2.0f, 3.5f};\n    auto output = launch_${functionName}(input);\n    ASSERT_EQ(output.size(), input.size());\n    for (size_t i = 0; i < input.size(); ++i)\n        EXPECT_FLOAT_EQ(output[i], input[i]);\n}\n\nTEST(${functionName}, accepts_an_empty_tensor) {\n    EXPECT_TRUE(launch_${functionName}({}).empty());\n}\n`
+    : `import numpy as np\nimport pytest\n\n\ndef test_${functionName}_rejects_a_missing_contract():\n    with pytest.raises(ValueError):\n        ${functionName}()\n\n\ndef test_${functionName}_returns_the_documented_value_without_mutation():\n    sample = np.array([1.0, -2.0, 3.5])\n    before = sample.copy()\n    result = ${functionName}(sample)\n    np.testing.assert_array_equal(result, before)\n    np.testing.assert_array_equal(sample, before)\n`;
   return {
     label,
     objective: `Build ${label} as one small, testable piece of ${location.part.title}.`,
@@ -98,7 +102,7 @@ export function buildStepLesson(location: StepLocation) {
     ],
     starter: code.starter,
     solution: code.solution,
-    tests: `def test_${location.step.title.replace(/[^a-zA-Z0-9_]/g, "_")}():\n    # Arrange: create the smallest valid input.\n    # Act: call the function from this lesson.\n    # Assert: check value, shape, dtype, and input immutability.\n    assert True\n`,
+    tests,
     mistakes: [
       `Changing the input in place when later code expects it to remain unchanged.`,
       `Returning the right values with the wrong shape or dtype.`,
