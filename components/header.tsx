@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, Map, Search, Trophy } from "lucide-react";
+import { BarChart3, Map, Search } from "lucide-react";
 import { Logo } from "./icons";
 import { ThemeToggle } from "./walkthrough/theme-toggle";
 
@@ -12,7 +12,6 @@ export function Header({ active = "roadmap" }: { active?: string }) {
       <Link className={active === "roadmap" ? "active" : ""} href="/"><Map size={16}/> Roadmap</Link>
       <Link className={active === "dashboard" ? "active" : ""} href="/dashboard"><BarChart3 size={16}/> Dashboard</Link>
       <Link className={active === "projects" ? "active" : ""} href="/projects"><Search size={16}/> Projects</Link>
-      <a href="#leaderboard"><Trophy size={16}/> Leaderboard</a>
     </nav>
     <div className="profile"><ThemeToggle/><span className="profile-level">LVL 01</span><span className="avatar">SK</span></div>
   </header>;
